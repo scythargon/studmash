@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Were we let in for our looks? No. Will we be judged on them? Yes.</h3>
+<h2>Who's hotter? Click to choose.</h2>
+
+<center>
+<table>
+	<tr>
+		<td valign="top" class="image"><a href="rate.php?vote=<?=$randomvalue0?>"><img src="images/<?=$images[0]->filename?>" /></a></td>
+		<td valign="top" class="image"><a href="rate.php?vote=<?=$randomvalue1?>"><img src="images/<?=$images[1]->filename?>" /></a></td>
+	</tr>
+	<tr>
+		<td>Won: <?=$images[0]->wins?>, Lost: <?=$images[0]->losses?></td>
+		<td>Won: <?=$images[1]->wins?>, Lost: <?=$images[1]->losses?></td>
+	</tr>
+	<tr>
+		<td>Score: <?=$images[0]->score?></td>
+		<td>Score: <?=$images[1]->score?></td>
+	</tr>
+	<tr>
+		<td>Expected: <?=round(expected($images[1]->score, $images[0]->score), 4)?></td>
+		<td>Expected: <?=round(expected($images[0]->score, $images[1]->score), 4)?></td>
+	</tr>
+</table>
+</center>
+
+<h2>Top Rated</h2>
+<center>
+<table>
+	<tr>
+		<? foreach($top_ratings as $key => $image) : ?>
+		<td valign="top"><img src="images/<?=$image->filename?>" width="70" /></td>
+		<? endforeach ?>
+	</tr>
+
+</table>
+</center>
+{% endblock %}
