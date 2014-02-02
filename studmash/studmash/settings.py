@@ -89,16 +89,30 @@ WSGI_APPLICATION = 'studmash.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-            'ENGINE':'django.db.backends.postgresql_psycopg2',
-            'NAME': 'studmash',
-            'USER': 'studmash',
-            'PASSWORD': 'qweqweqwe',
-            'HOST': '127.0.0.1',
-            'PORT': '5432',
-        }
-}
+import socket
+if_local = len([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")][:1]) == 0
+
+if if_local:
+    DATABASES = {
+        'default': {
+                'ENGINE':'django.db.backends.postgresql_psycopg2',
+                'NAME': 'studmash',
+                'USER': 'studmash',
+                'PASSWORD': 'qweqweqwe',
+                'HOST': '127.0.0.1',
+                'PORT': '5432',
+            }
+    }
+else:
+    DATABASES = {
+        'default': {
+                'ENGINE':'django.db.backends.mysql',
+                'NAME': 'fr7913td_django',
+                'USER': 'fr7913td_django',
+                'PASSWORD': 'SUCHpasswordmuchsecurityWOW',
+                'HOST': '127.0.0.1',
+            }
+    }
 
 AUTHENTICATION_BACKENDS = (
     'social_auth.backends.contrib.vk.VKOAuth2Backend',
